@@ -1,0 +1,20 @@
+service: testproxy
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-west-1
+  stage: dev
+
+functions:
+  apigw-sample:
+    handler: functions/apigw.handler
+    events:
+      - http:
+          path: 'v1/{proxy+}'
+          method: any
+
+  httpapi-sample:
+    handler: functions/httpapi.handler
+    events:
+      - httpApi: "*"
